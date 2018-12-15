@@ -6,10 +6,9 @@ from resume_types import make_resume_model
 import subprocess
 import sys
 
-
 def make(output_format, resume_file, output_dir):
-    my_resume = SourceFileLoader('my_resume', resume_file).load_module()
-    resume_model = make_resume_model(my_resume)
+    input_resume = SourceFileLoader('input_resume', resume_file).load_module()
+    resume_model = make_resume_model(input_resume)
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
@@ -24,4 +23,4 @@ def make(output_format, resume_file, output_dir):
 
 if __name__ == '__main__':
     output_format, resume_file, output_dir = sys.argv[1:4]
-    make(output_format, resume_file, output_dir)
+    make(output_format, os.path.abspath(resume_file), os.path.abspath(output_dir))
